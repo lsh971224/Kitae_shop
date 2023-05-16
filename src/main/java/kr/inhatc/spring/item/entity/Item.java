@@ -1,6 +1,7 @@
 package kr.inhatc.spring.item.entity;
 
 import kr.inhatc.spring.item.constant.ItemSellStatus;
+import kr.inhatc.spring.utils.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="item_id")
@@ -27,7 +28,5 @@ public class Item {
     @Lob
     @Column(nullable = false)
     private String itemDetail; //상품 상세 설명
-    private LocalDateTime regTime; //등록 시간
-    private LocalDateTime updateTime; //수정 시간
     private ItemSellStatus itemSellStatus;
 }

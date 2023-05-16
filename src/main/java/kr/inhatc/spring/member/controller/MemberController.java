@@ -7,18 +7,24 @@ import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.MultiValueBinding;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/member")
 @Log4j2
 public class MemberController {
 
@@ -27,13 +33,13 @@ public class MemberController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @GetMapping("/new")
+    @GetMapping("/member/new")
     public String memberForm(Model model) {
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/member/new")
     public String memberForm(@Valid MemberFormDto memberFormDto,
                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -50,13 +56,31 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/member/login")
     public String login() {
         return "member/memberLogin";
     }
 
-    @GetMapping("/login/error")
+    @GetMapping("/auth/kakao/callback")
+    public  String kakaoCallback(String code){ //DATA를 리턴해주는 컨트롤러 함수 @ResponseBody;
+        //POST방식으로 key=value 데이터를 요청
+
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type","authorization_code");
+        params.add("client_id","449d7bc881de79d7ef5201d39c7948f4");
+        params.add("redirect_uri","http://localhost:8090/auth/kakao/callback");
+        params.add("code",code);
+
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
+                new HttpEntity<>(params, headers);
+        return "redirect:/";
+    }
+    @GetMapping("/member/login/error")
     public String loginError(Model model) {
+
         model.addAttribute("loginErrorMsg", "아이디 또는 패스워드가 잘못되었습니다.");
         return "member/memberLogin";
     }

@@ -2,6 +2,7 @@ package kr.inhatc.spring.member.entity;
 
 import kr.inhatc.spring.member.constant.Role;
 import kr.inhatc.spring.member.dto.MemberFormDto;
+import kr.inhatc.spring.utils.entity.BaseEntity;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")

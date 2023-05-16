@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,8 +28,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/");
         //접근권한을 하긴했는데 get으로 주소를 입력하면 들어가는걸 방지시키는 코드
         http.authorizeRequests()
-                .mvcMatchers("/css/**","js/**").permitAll() //css 이런 공통되는걸 모든사람한테 해준다.
-                .mvcMatchers("/","/member/**","/item/**").permitAll() //member,item애들한테 루트에 들어오는걸 다허용
+                .mvcMatchers("/css/**","js/**","/img/**").permitAll() //css 이런 공통되는걸 모든사람한테 해준다.
+                .mvcMatchers("/","/member/**","/item/**","/auth/**").permitAll() //member,item애들한테 루트에 들어오는걸 다허용
                 .mvcMatchers("/admin/**").hasRole("ADMIN") //권힌이 어드민인 애들만 들어올수있음
                 .anyRequest().authenticated(); //인증을 받은 사람들만 들어올수있게
         http.exceptionHandling() //권힌이 없는데 막 치고 들어올수있는걸 방지하기위하여

@@ -1,6 +1,7 @@
 package kr.inhatc.spring.cart.entity;
 
 import kr.inhatc.spring.member.entity.Member;
+import kr.inhatc.spring.utils.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Cart {
+public class Cart extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")

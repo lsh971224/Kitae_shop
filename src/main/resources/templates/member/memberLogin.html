@@ -26,6 +26,7 @@
               </div>
               <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
               <button class="btn btn-primary">로그인</button>
+              <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=449d7bc881de79d7ef5201d39c7948f4&redirect_uri=http://localhost:8090/auth/kakao/callback"><img src="/img/kakao_login_button.png"></a>
               <button type="button" class="btn btn-primary" onClick="location.href='/member/new'">회원가입</button>
               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
        </form>

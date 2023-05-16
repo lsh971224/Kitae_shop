@@ -1,6 +1,6 @@
 package kr.inhatc.spring.thymeleaf.controller;
 
-import kr.inhatc.spring.item.dto.ItemDto;
+import kr.inhatc.spring.item.dto.ItemFormDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class ThymeleafController {
 
     @GetMapping("/ex2")
     public String ex2(Model model) {
-        ItemDto itemDto = new ItemDto();
+        ItemFormDto itemDto = new ItemFormDto();
         itemDto.setItemDetail("상품 상세 설명");
         itemDto.setItemNm("테스트 상품1");
         itemDto.setPrice(10000);
@@ -34,9 +34,9 @@ public class ThymeleafController {
     }
     @GetMapping(value = {"/ex3","/ex4"})
     public void ex3(Model model) {
-        List<ItemDto> list = new ArrayList<>();
+        List<ItemFormDto> list = new ArrayList<>();
         for(int i=0; i<=10;i++){
-            ItemDto itemDto = new ItemDto();
+            ItemFormDto itemDto = new ItemFormDto();
             itemDto.setItemDetail("상품 상세 설명"+i);
             itemDto.setItemNm("테스트 상품1"+i);
             itemDto.setPrice(10000*i);
